@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:securebank;MODE=MySQL;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=10000
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+
+app:
+  jwt:
+    secret: test-secret-key-that-is-long-enough-for-hs256-signing
+    expiration-minutes: 60
+  fraud:
+    # Transfers at or above this amount are held for admin review.
+    high-value-threshold: 200000
+    # The ML model holds transfers scoring at or above this (0..1).
+    hold-score: 0.8
+    ml-enabled: false  # tests check transaction logic with the rule only; the model has its own tests
+  timezone: Asia/Kolkata
+  admin:
+    email: admin@securebank.com
+    password: Admin@123
